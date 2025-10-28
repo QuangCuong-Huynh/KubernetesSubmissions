@@ -25,3 +25,9 @@ kubectl get services
 
  k3d cluster stop
  k3d cluster start
+
+
+git branch --set-upstream-to=origin/todo-app
+
+git push --tags
+git ls-remote --tags origin
