@@ -1,6 +1,6 @@
 {
   "name": "log_output",
-  "version": "1.0.0",
+  "version": "1.2.1",
   "description": "Deploy with `kubectl apply -a manifests`",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^5.1.0",
-    "nodemon": "^2.0.22",
+    "nodemon": "^3.1.10",
     "uuid": "^13.0.0"
   },
   "repository": {

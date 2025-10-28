@@ -11,6 +11,9 @@ chmod +x node_setup.sh
 chmod +x sync-version.sh
 ./sync-version.sh
 
+npm run dev:log_output
+npm run dev:todo-app
+npm run dev:all
 
 kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" | \
 tr -s '[[:space:]]' '\n' | \
@@ -20,3 +23,11 @@ uniq -c
 kubectl get deployments
 kubectl get services
 
+ k3d cluster stop
+ k3d cluster start
+
+
+git branch --set-upstream-to=origin/todo-app
+
+git push --tags
+git ls-remote --tags origin

@@ -1,13 +1,15 @@
 import express from "express";
 import { v7 as uuidv7 } from "uuid";
+import dotenv from 'dotenv';
 
+dotenv.config({ path: '../../.env' }); 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.LOG_OUTPUT_PORT || 3000;
 
 // Generate random string once on startup
 const randomId = uuidv7();
 
-console.log(`🚀 Application started. Session ID: ${randomId}`);
+console.log(`Application started. Session ID: ${randomId}`);
 
 // Print every 5 seconds with timestamp
 setInterval(() => {
