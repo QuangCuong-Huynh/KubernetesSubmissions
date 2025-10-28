@@ -20,3 +20,5 @@ uniq -c
 kubectl get deployments
 kubectl get services
 
+ k3d cluster stop
+ k3d cluster start
