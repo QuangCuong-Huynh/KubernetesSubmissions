@@ -11,6 +11,9 @@ chmod +x node_setup.sh
 chmod +x sync-version.sh
 ./sync-version.sh
 
+npm run dev:log_output
+npm run dev:todo-app
+npm run dev:all
 
 kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" | \
 tr -s '[[:space:]]' '\n' | \

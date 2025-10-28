@@ -1,0 +1,29 @@
+{
+  "name": "todo-app",
+  "version": "0.0.1",
+  "description": "The project is a simple todo application with the familiar features of create, read, update, and delete (CRUD). Todo is a text like \"I need to clean the house\" that can be in the state of not-done or done.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "changeset": "changeset version",
+    "sync-version": "node ../bin/sync-version.js",
+    "dev": "node index.js",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QuangCuong-Huynh/KubernetesSubmissions.git"
+  },
+  "author": "QuangCuong-Huynh/",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/QuangCuong-Huynh/KubernetesSubmissions/issues"
+  },
+  "homepage": "https://github.com/QuangCuong-Huynh/KubernetesSubmissions#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "expresse": "^1.0.2",
+    "nodemon": "^3.1.10",
+    "uuid": "^13.0.0"
+  }
+}
