@@ -16,9 +16,36 @@ kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].ima
 tr -s '[[:space:]]' '\n' | \
 sort | \
 uniq -c
-
+kubectl rollout restart deployment/log-output
 kubectl get deployments
 kubectl get services
+kubectl apply -f manifests
 
- k3d cluster stop
- k3d cluster start
+<<<<<<< Updated upstream
+=======
+k3d cluster stop
+k3d cluster start
+
+docker buildx build -t log_output:v1.1.0 .
+
+docker login ghcr.io -u UIT-23730009 --password-stdin
+
+docker buildx build -t ghcr.io/uit-23730009/kubernetessubmissions/log_output:v1.1.0 .
+docker push ghcr.io/uit-23730009/kubernetessubmissions/log_output:v1.1.0 .
+
+docker inspect ghcr.io/uit-23730009/kubernetessubmissions/log_output:v1.1.0
+docker tag log_output:v1.1.0 ghcr.io/uit-23730009/log_output:v1.1.0
+docker push ghcr.io/uit-23730009/log_output:v1.1.0
+
+
+kubectl create secret docker-registry ghcr-secret \
+  --docker-server=ghcr.io \
+  --docker-username= \
+  --docker-password= \
+  --docker-email=you@example.com
+
+kubectl port-forward log-output-dep-7bc45b566-5v975 8080:80
+ kubectl logs -f 
+
+ kubectl scale deployment log-output-dep --replicas=0
+>>>>>>> Stashed changes
