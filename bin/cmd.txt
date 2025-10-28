@@ -19,9 +19,10 @@ kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].ima
 tr -s '[[:space:]]' '\n' | \
 sort | \
 uniq -c
-
+kubectl rollout restart deployment/log-output
 kubectl get deployments
 kubectl get services
+kubectl apply -f manifests
 
  k3d cluster stop
  k3d cluster start
