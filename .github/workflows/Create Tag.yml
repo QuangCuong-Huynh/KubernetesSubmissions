@@ -1,0 +1,33 @@
+name: Create Tag
+
+on:
+  push:
+    branches: [ "main", "develop", "release" ]
+  pull_request:
+    branches: [ "main", "develop", "release" ]
+    paths:
+      - "VERSION" 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 1️⃣ Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Read version from VERSION file
+      - name: Read VERSION file
+        id: read_version
+        run: |
+          VERSION=$(cat VERSION)
+          echo "Read version: $VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      # 3️⃣ Create tag based on VERSION
+      - name: Create tag
+        uses: Klemensas/action-autotag@stable
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          tag_prefix: "v"
+          tag: "${{ steps.read_version.outputs.version }}"
