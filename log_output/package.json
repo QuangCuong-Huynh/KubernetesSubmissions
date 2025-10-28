@@ -4,13 +4,24 @@
   "description": "Deploy with `kubectl apply -a manifests`",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node index.js",
+    "start": "nodemon index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "/QuangCuong-Huynh",
   "license": "ISC",
   "dependencies": {
     "express": "^5.1.0",
+    "nodemon": "^2.0.22",
     "uuid": "^13.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QuangCuong-Huynh/KubernetesSubmissions.git"
+  },
+  "bugs": {
+    "url": "https://github.com/QuangCuong-Huynh/KubernetesSubmissions/issues"
+  },
+  "homepage": "https://github.com/QuangCuong-Huynh/KubernetesSubmissions#readme"
 }
