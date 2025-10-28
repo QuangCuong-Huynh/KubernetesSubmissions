@@ -1,6 +1,6 @@
 {
   "name": "todo-app",
-  "version": "1.2.1",
+  "version": "1.4.0",
   "description": "The project is a simple todo application with the familiar features of create, read, update, and delete (CRUD). Todo is a text like \"I need to clean the house\" that can be in the state of not-done or done.",
   "main": "index.js",
   "scripts": {
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/QuangCuong-Huynh/KubernetesSubmissions#readme",
   "dependencies": {
+    "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "expresse": "^1.0.2",
     "nodemon": "^3.1.10",
