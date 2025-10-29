@@ -23,7 +23,6 @@ on:
     branches: [ "main", "develop", "release", "release/*" ]
   pull_request:
     branches: [ "main", "develop", "release", "release/*" ]
-    tags: [ 'v*.*.*' ]
   workflow_run:
     workflows: ["Node.js CI", "CodeQL Advanced"]
     types:
