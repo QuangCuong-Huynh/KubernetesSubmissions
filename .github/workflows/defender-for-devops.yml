@@ -17,6 +17,9 @@
 # Read the official documentation here : https://learn.microsoft.com/en-us/azure/defender-for-cloud/quickstart-onboard-github
 
 name: "Microsoft Defender For Devops"
+permissions:
+  id-token: write
+  contents: read
 
 on:
   push:
@@ -44,6 +47,11 @@ jobs:
           6.0.x
     - name: Run Microsoft Security DevOps
       uses: microsoft/security-devops-action@v1.6.0
+      with:
+        policy: GitHub
+      env:
+        NUGET_PACKAGES: D:\a\_msdo\packages
+        NUGET_FEED_URLS: https://api.nuget.org/v3/index.json
       id: msdo
     - name: Upload results to Security tab
       uses: github/codeql-action/upload-sarif@v3
