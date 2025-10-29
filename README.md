@@ -2,16 +2,7 @@
 [![CodeQL](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/github-code-scanning/codeql)
 [![CodeQL Advanced](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/codeql.yml/badge.svg)](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/codeql.yml)
 [![Node.js CI](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/node.js.yml/badge.svg)](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/node.js.yml)
-<<<<<<< HEAD
 
-[![CodeQL](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/github-code-scanning/codeql)
-[![CodeQL Advanced](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/codeql.yml/badge.svg)](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/codeql.yml)
-[![Node.js CI](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/node.js.yml/badge.svg)](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/node.js.yml)
-[![Microsoft Defender For Devops](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/defender-for-devops.yml/badge.svg)](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/defender-for-devops.yml)
-
-=======
-[![Microsoft Defender For Devops](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/defender-for-devops.yml/badge.svg)](https://github.com/QuangCuong-Huynh/KubernetesSubmissions/actions/workflows/defender-for-devops.yml)
->>>>>>> 137bf9c (Add Microsoft Defender badge to README)
 ## Exercises
 
 ### Chapter 2
