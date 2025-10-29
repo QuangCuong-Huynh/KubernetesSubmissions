@@ -1,23 +1,27 @@
-// my_portfolio/.eslintrc.js
-module.exports = {
+export default {
+  root: true,
   env: {
+    node: true,
     browser: true,
-    es2021: true,
+    es2022: true,
+    mocha: true,
+  },
+  parserOptions: {
+    ecmaVersion: "latest",
+    sourceType: "module",
   },
   extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-  ],
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 12,
-    sourceType: 'module',
-  },
-  plugins: [
-    'react',
+    "eslint:recommended",
+    "plugin:import/recommended", // handles ESM import/export validation
+    "plugin:prettier/recommended", // integrates Prettier
   ],
   rules: {
+    "no-console": "off",
+    "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+  },
+  settings: {
+    "import/resolver": {
+      node: true,
+    },
   },
 };

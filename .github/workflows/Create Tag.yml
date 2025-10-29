@@ -2,11 +2,11 @@ name: Create Tag
 
 on:
   push:
-    branches: [ "main", "develop", "release" ]
+    branches: ["main", "develop", "release"]
   pull_request:
-    branches: [ "main", "develop", "release" ]
+    branches: ["main", "develop", "release"]
     paths:
-      - "VERSION" 
+      - "VERSION"
 
 jobs:
   build:
