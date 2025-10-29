@@ -34,7 +34,16 @@
   "devDependencies": {
   
     
+  "chai": "^6.2.0",
+  
+    
   "concurrently": "^9.2.1",
+  
+    
+  "mocha": "^11.7.4",
+  
+    
+  "supertest": "^7.1.4",
   
     
   "syncpack": "^13.0.4"
@@ -65,7 +74,10 @@
   "dev:todo-app": "npm --workspace the_project/todo-app run dev",
   
     
-  "dev:all": "npm run dev:log_output & npm run dev:todo-app"
+  "dev:all": "npm run dev:log_output & npm run dev:todo-app", 
+
+  "test": "mocha \"**/test/**/*.test.js\" --recursive --timeout 5000 --require dotenv/config"  
   
   }
+  
 }
