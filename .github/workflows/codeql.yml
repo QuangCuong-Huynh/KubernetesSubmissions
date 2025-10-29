@@ -21,7 +21,7 @@ on:
     types:
       - completed
   schedule:
-    - cron: '26 4 * * 3'
+    - cron: '43 10 * * 4'
 
 jobs:
   analyze:
