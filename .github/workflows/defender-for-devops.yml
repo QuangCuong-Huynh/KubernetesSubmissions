@@ -31,6 +31,10 @@ on:
   schedule:
     - cron: '21 10 * * 4'
 
+permissions:
+  contents: read
+  security-events: write
+
 jobs:
   MSDO:
     # currently only windows latest is supported
@@ -83,6 +87,10 @@ on:
       - completed
   schedule:
     - cron: "21 10 * * 4"
+
+permissions:
+  contents: read
+  security-events: write
 
 jobs:
   MSDO:
