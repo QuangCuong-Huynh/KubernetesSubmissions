@@ -74,10 +74,9 @@
   "dev:todo-app": "npm --workspace the_project/todo-app run dev",
   
     
-  "dev:all": "npm run dev:log_output & npm run dev:todo-app", 
+  "dev:all": "npm run dev:log_output & npm run dev:todo-app",
+  
 
-  "test": "mocha \"**/test/**/*.test.js\" --recursive --timeout 5000 --require dotenv/config"  
-  
+  "test": "mocha \"./log_output/test/**/*.test.js\" --recursive --timeout 5000 --require dotenv/config && mocha \"./the_project/todo-app/test/**/*.test.js\" --recursive --timeout 5000 --require dotenv/config"
   }
-  
 }
