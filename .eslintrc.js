@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   root: true,
   env: {
     node: true,
@@ -12,8 +12,8 @@ export default {
   },
   extends: [
     "eslint:recommended",
-    "plugin:import/recommended", // handles ESM import/export validation
-    "plugin:prettier/recommended", // integrates Prettier
+    "plugin:import/recommended", 
+    "plugin:prettier/recommended",
   ],
   rules: {
     "no-console": "off",
@@ -21,7 +21,9 @@ export default {
   },
   settings: {
     "import/resolver": {
-      node: true,
+      node: {
+        extensions: [".js", ".mjs"],
+      },
     },
   },
 };
