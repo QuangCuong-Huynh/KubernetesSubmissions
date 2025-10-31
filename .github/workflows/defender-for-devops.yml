@@ -20,7 +20,8 @@ name: "Microsoft Defender For Devops"
 permissions:
   id-token: write
   contents: read
-
+  security-events: write
+  
 on:
   push:
     branches: [ "main", "develop", "release", "release/*" ]
