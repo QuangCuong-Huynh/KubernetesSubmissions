@@ -19,7 +19,7 @@
 name: "Microsoft Defender For Devops"
 permissions:
   id-token: write
-  contents: rea
+  contents: read
   security-events: write
   
 on:
