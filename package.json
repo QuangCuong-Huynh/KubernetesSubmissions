@@ -40,6 +40,9 @@
   "concurrently": "^9.2.1",
   
     
+  "eslint": "^9.38.0",
+  
+    
   "mocha": "^11.7.4",
   
     
@@ -76,7 +79,8 @@
     
   "dev:all": "npm run dev:log_output & npm run dev:todo-app",
   
-
+    
   "test": "mocha \"./log_output/test/**/*.test.js\" --recursive --timeout 5000 --require dotenv/config && mocha \"./the_project/todo-app/test/**/*.test.js\" --recursive --timeout 5000 --require dotenv/config"
+  
   }
 }
