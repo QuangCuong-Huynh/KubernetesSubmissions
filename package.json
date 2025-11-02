@@ -38,6 +38,9 @@
     "test": "mocha \"./log_output/test/**/*.test.js\" --recursive --timeout 5000 --require dotenv/config && mocha \"./the_project/todo-app/test/**/*.test.js\" --recursive --timeout 5000 --require dotenv/config",
     "lint": "eslint . --ext .js",
     "lint:fix": "eslint . --ext .js --fix",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "bump:patch": "npm version patch && node -p \"require('./package.json').version\" > VERSION",
+    "bump:minor": "npm version minor && node -p \"require('./package.json').version\" > VERSION",
+    "bump:major": "npm version major && node -p \"require('./package.json').version\" > VERSION"
   }
 }

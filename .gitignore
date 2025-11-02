@@ -108,6 +108,7 @@ typings/
 .env.test
 .env.production
 .env.local
+.env.development
 ### SublimeText ###
 # cache files for sublime text
 *.tmlanguage.cache
