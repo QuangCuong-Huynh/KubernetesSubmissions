@@ -15,7 +15,7 @@ dotenv.config({ path: "../../.env" });
 // --------------------------
 // Config
 // --------------------------
-const PORT = process.env.TODO_PORT ?? 3000;
+const PORT = 3000 || process.env.TODO_PORT;
 const ENV = process.env.NODE_ENV ?? "development";
 
 // Extract app-level info
