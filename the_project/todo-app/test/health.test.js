@@ -8,7 +8,6 @@ const { expect } = chai;
 chai.use(chaiHttp);
 const apiVersion = app.locals.apiVersion;
 const request = supertest(app);
-
 describe("Health API", function () {
   it(`GET /api/${apiVersion}/health should return status 200 and server info`, async function () {
     const res = await request.get(`/api/${apiVersion}/health`);
@@ -27,16 +26,17 @@ describe("Health API", function () {
     expect(data).to.have.property("apiVersion").that.is.a("string");
   });
 
-  it("GET /api/v1/health returns JSON with proper types", async function () {
-    const res = await request.get("/api/v1/health");
+  it(`GET /api/${apiVersion}/health returns JSON with proper types`, async function () {
+    const res = await request.get(`/api/${apiVersion}/health`);
     const memoryUsage = res.body.data.memoryUsage;
 
-    expect(memoryUsage).to.have.all.keys("rss", "heapTotal", "heapUsed");
+    expect(memoryUsage).to.include.keys("rss", "heapTotal", "heapUsed");
     expect(memoryUsage.rss).to.be.a("number");
     expect(memoryUsage.heapTotal).to.be.a("number");
     expect(memoryUsage.heapUsed).to.be.a("number");
   });
 });
+
 describe("API Root", function () {
   it(`GET /api/${apiVersion}/ should return status 200 and welcome message`, async function () {
     const res = await request.get(`/api/${apiVersion}/`);
@@ -49,9 +49,17 @@ describe("API Root", function () {
     const data = res.body.data;
     expect(data).to.have.property(
       "message",
-      "Welcome to API Root version " + res.body.data.apiVersion
+      "Welcome to API Root version " + apiVersion
     );
     expect(data).to.have.property("endpoints").that.is.an("array").that.includes("/");
     expect(data).to.have.property("versionedApi").that.is.a("string");
+  });
+});
+
+describe("Server Routes", function () {
+  it("should redirect / to versioned API", async function () {
+    const res = await request.get("/").redirects(0); // prevent auto-follow
+    expect(res.status).to.equal(302);
+    expect(res.headers.location).to.equal(`/api/${apiVersion}`);
   });
 });

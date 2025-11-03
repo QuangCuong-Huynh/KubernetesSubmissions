@@ -56,6 +56,7 @@ router.get(
   "/",
   asyncHandler(async (req, res) => {
     sendResponse(res, {
+      status: 'success',
       message: "Welcome to API Root version " + res.app.locals.apiVersion,
       endpoints: ["/"],
       versionedApi: `/api/${res.app.locals.apiVersion}/`,

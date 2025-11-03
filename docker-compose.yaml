@@ -1,27 +1,35 @@
+version: "3.9"
+
 services:
-  web:
-    image: nginx:latest
+  proxy:
+    image: jwilder/nginx-proxy
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
     ports:
       - "80:80"
-    volumes:
-      - ./nginx/nginx.conf:/nginx/conf.d/nginx.conf:rw
-      - ./nginx/extra:/nginx/conf.d/extra:ro
+    networks:
+      - webnet
+
+  whoami:
+    image: jwilder/whoami
+    environment:
+      - VIRTUAL_HOST=whoami.colasloth.com
     networks:
       - webnet
 
   log-output:
     build: ./log_output
-    env_file:
-      - .env
-      - .env.${NODE_ENV:-development}
-      
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - VIRTUAL_HOST=log-output.colasloth.com
+      - LOG_LEVEL=info
+      - SERVICE_NAME=log-output
     ports:
-      - "${PORT:-3001}:3000"
+      - "3001:3000"
     networks:
       - webnet
-    depends_on:
-      - web
-    command: "sh -c 'npm install && npm run start -- --port 3000'"
+    command: sh -c "npm install && npm run start -- --port 3000"
     restart: on-failure
     logging:
       driver: json-file
@@ -34,28 +42,20 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
-    deploy:
-      resources:
-        limits:
-          cpus: "0.50"
-          memory: 512M
-        reservations:
-          cpus: "0.25"
-          memory: 256M
 
   todo-app:
     build: ./the_project/todo-app
-    env_file:
-      - .env
-      - .env.${NODE_ENV:-development}
-      
+    environment:
+      - NODE_ENV=development
+      - TODO_PORT=3000
+      - VIRTUAL_HOST=todo-app.colasloth.com
+      - API_URL=http://log-output:3000
+      - SERVICE_NAME=todo-app
     ports:
-      - "${TODO_PORT:-3002}:3000"
+      - "3002:3000"
     networks:
       - webnet
-    depends_on:
-      - log-output
-    command: "sh -c 'npm install && npm run start -- --port 3000'"
+    command: sh -c "npm install && npm run start -- --port 3000"
     restart: on-failure
     logging:
       driver: json-file
@@ -68,21 +68,12 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
-    deploy:
-      resources:
-        limits:
-          cpus: "0.50"
-          memory: 512M
-        reservations:
-          cpus: "0.25"
-          memory: 256M
 
 networks:
   webnet:
     driver: bridge
     ipam:
       config:
-        - subnet: 192.168.1.0/24
-          gateway: 192.168.1.1
+        - subnet: 172.28.0.0/16
+          gateway: 172.28.0.1
       driver: default
-
