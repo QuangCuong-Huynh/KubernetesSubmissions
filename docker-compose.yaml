@@ -10,12 +10,6 @@ services:
     networks:
       - webnet
 
-  whoami:
-    image: jwilder/whoami
-    environment:
-      - VIRTUAL_HOST=whoami.colasloth.com
-    networks:
-      - webnet
 
   log-output:
     build: ./log_output
