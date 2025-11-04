@@ -29,6 +29,8 @@ kubectl port-forward deployment/log-output
 k3d cluster stop
 k3d cluster start
 
+curl -i http://localhost:3000/api/v1.4
+curl -i http://localhost:3000/api/v1.4/health
 
 git branch --set-upstream-to=origin/todo-app
 

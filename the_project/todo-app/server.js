@@ -28,7 +28,7 @@ app.use(helmet());          // Secure headers
 app.use(cors());            // Cross-Origin Resource Sharing
 app.use(morgan("tiny"));    // Log HTTP requests
 app.use(express.json());    // Parse JSON bodies
-
+app.set('trust proxy', 1); 
 // --------------------------
 // Rate Limiting
 // --------------------------

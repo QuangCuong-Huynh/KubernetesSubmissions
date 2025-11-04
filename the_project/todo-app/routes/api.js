@@ -34,6 +34,8 @@ const env = process.env.NODE_ENV || "development";
 router.get(
   "/health",
   asyncHandler(async (req, res) => {
+    console.log("SUCCESS: API v1.4 route was successfully hit!");
+    console.log("Request Headers:", req.headers); // Debug headers
     const memoryUsage = process.memoryUsage();
     const uptime = process.uptime();
 
@@ -55,6 +57,8 @@ router.get(
 router.get(
   "/",
   asyncHandler(async (req, res) => {
+    console.log("SUCCESS: API v1.4 route was successfully hit!");
+    console.log("Request Headers:", req.headers); // Debug headers
     sendResponse(res, {
       status: 'success',
       message: "Welcome to API Root version " + res.app.locals.apiVersion,
