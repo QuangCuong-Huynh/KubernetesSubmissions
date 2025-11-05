@@ -31,7 +31,6 @@ app.use(helmet());          // Secure headers
 
 // Cross-Origin Resource Sharing
 app.use(cors({
-  origin: '*', //replace in production
   methods: ['GET','POST','PUT','DELETE','OPTIONS'],
   allowedHeaders: ['Content-Type','Authorization']
 }));
