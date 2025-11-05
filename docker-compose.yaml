@@ -3,12 +3,13 @@ version: "3.9"
 services:
   proxy:
     image: jwilder/nginx-proxy
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-    ports:
-      - "80:80"
     networks:
       - webnet
+    ports:
+      - "0.0.0.0:80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
 
 
   log-output:
@@ -16,6 +17,7 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=3000
+      - VIRTUAL_PORT=3000
       - VIRTUAL_HOST=log-output.colasloth.com
       - LOG_LEVEL=info
       - SERVICE_NAME=log-output
@@ -31,7 +33,7 @@ services:
         max-size: "10m"
         max-file: "3"
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:3000/health || exit 1"]
+      test: ["CMD-SHELL", "curl -f http://localhost:3001/health || exit 1"]
       interval: 1m30s
       timeout: 10s
       retries: 3
@@ -42,8 +44,9 @@ services:
     environment:
       - NODE_ENV=development
       - TODO_PORT=3000
+      - VIRTUAL_PORT=3000
       - VIRTUAL_HOST=todo-app.colasloth.com
-      - API_URL=http://log-output:3000
+      - API_URL=http://log-output:3001
       - SERVICE_NAME=todo-app
     ports:
       - "3002:3000"
@@ -57,7 +60,7 @@ services:
         max-size: "10m"
         max-file: "3"
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:3000/health || exit 1"]
+      test: ["CMD-SHELL", "curl -f http://localhost:3002/health || exit 1"]
       interval: 1m30s
       timeout: 10s
       retries: 3
