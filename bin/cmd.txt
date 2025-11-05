@@ -19,12 +19,14 @@ kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].ima
 tr -s '[[:space:]]' '\n' | \
 sort | \
 uniq -c
+
 kubectl rollout restart deployment/log-output
 kubectl get deployments
 kubectl get services
 kubectl apply -f manifests
 kubectl port-forward deployment/todo-app-dep :3000
 kubectl port-forward deployment/log-output
+kubectl scale deployment todo-app-dep --replicas 0
 
 k3d cluster stop
 k3d cluster start
@@ -54,3 +56,5 @@ docker exec -it webnet sh
 ping todo-app
 ping log-output
 docker exec -it 9db73923ca39 cat /etc/nginx/conf.d/default.conf
+
+kubectl set image deployments/todo-app-dep todo-app-dep=docker.io/quangcuonghuynh/todo-app:latest

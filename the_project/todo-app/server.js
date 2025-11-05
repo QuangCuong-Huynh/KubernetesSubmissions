@@ -5,6 +5,9 @@ import morgan from "morgan";
 import dotenv from "dotenv";
 import rateLimit from "express-rate-limit";
 
+import swaggerUi from 'swagger-ui-express';
+import swaggerJSDoc from 'swagger-jsdoc';
+
 import app from "./app.js";
 
 // --------------------------
@@ -15,7 +18,7 @@ dotenv.config({ path: "../../.env" });
 // --------------------------
 // Config
 // --------------------------
-const PORT = 3000 || process.env.TODO_PORT;
+const PORT = process.env.TODO_PORT ?? 3000 ;
 const ENV = process.env.NODE_ENV ?? "development";
 
 // Extract app-level info
@@ -25,7 +28,12 @@ const { sessionId, appVersion, apiVersion } = app.locals;
 // Security & Middleware
 // --------------------------
 app.use(helmet());          // Secure headers
-app.use(cors());            // Cross-Origin Resource Sharing
+
+// Cross-Origin Resource Sharing
+app.use(cors({
+  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type','Authorization']
+}));
 app.use(morgan("tiny"));    // Log HTTP requests
 app.use(express.json());    // Parse JSON bodies
 app.set('trust proxy', 1); 
@@ -37,6 +45,36 @@ const limiter = rateLimit({
   max: 100,                 // limit each IP to 100 requests per windowMs
 });
 app.use(limiter);
+
+// Swagger definition
+const swaggerOptions = {
+    swaggerDefinition: {
+        openapi: '3.0.0',
+        info: {
+        title: "TODO APP API",
+        version: `${apiVersion}`,
+        description: "Todo app API service"
+        },
+        servers: [
+            {
+                url: `https://opulent-space-winner-97794xgp775vcxrg4-3000.app.github.dev/api/v1.4`,
+            },
+        ],
+    components: {
+    securitySchemes: {
+        bearerAuth: {
+            type: 'http',
+            scheme: 'bearer',
+            bearerFormat: 'JWT', 
+        },
+    },
+},
+    },
+    apis: ['./routes/*.js'], 
+};
+
+const swaggerDocs = swaggerJSDoc(swaggerOptions);
+   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // --------------------------
 // Start server
