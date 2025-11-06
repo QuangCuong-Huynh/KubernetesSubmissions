@@ -146,6 +146,41 @@ a:hover { color: darken(var(--color-accent),10%); }
 .flex-column { display: flex; flex-direction: column; }
 .flex-wrap { flex-wrap: wrap; }
 
+/**/
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* flexible, min 280px each */
+  gap: 1.5rem; /* modern spacing syntax */
+  align-items: start;
+  justify-items: stretch;
+  padding: 1rem;
+}
+
+/* Medium screens: 2 columns */
+@media (min-width: 640px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+}
+
+/* Large desktop: wide multi-column */
+@media (min-width: 1024px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+  }
+}
+
+/* Optional ultra-wide layout (e.g., 4–5 cols on large monitors) */
+@media (min-width: 1440px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    max-width: 1800px;
+    margin: 0 auto;
+  }
+}
+
 /* ===================================================
    4. Cards & Panels (Soft-Morphism)
 =================================================== */
@@ -322,6 +357,16 @@ input:focus, select:focus, textarea:focus {
   .container { gap: var(--spacing-lg); padding: var(--spacing-lg); }
 }
 
+@media screen and (min-width: 1024px) { /* Adjust breakpoint as needed */
+  .hide-on-large-screen {
+    display: none;
+  }
+}
+@media screen and (max-width: 768px) { /* Adjust breakpoint as needed */
+  .hide-on-small-screen {
+    display: none;
+  }
+}
 /* ===================================================
    13. Tables / Lists / Tabs / Accordions / Progress
 =================================================== */
