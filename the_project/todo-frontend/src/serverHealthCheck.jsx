@@ -142,7 +142,7 @@ function ServerHealthCheck() {
         
         {/* Render Health Data in a well-structured table */}
         {healthData ? (
-          <div style={{ backgroundColor: "#fff", border: '1px solid #ddd', borderRadius: '4px' }}>
+          <div style={{ border: '1px solid #ddd', borderRadius: '4px' }}>
             {renderDataTable(healthData)}
           </div>
         ) : (
