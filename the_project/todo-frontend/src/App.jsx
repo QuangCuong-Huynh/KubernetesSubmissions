@@ -23,10 +23,10 @@ function App() {
         <header className="app-header morph-header">
           
 
-          <nav className="desktop-nav ">
-            <button onClick={() => switchStyle('glass', 'tone-soft')}>Glass</button>
-            <button onClick={() => switchStyle('neumo', 'tone-light')}>Neumo</button>
-            <button onClick={() => switchStyle('clay', 'tone-vivid')}>Clay</button>
+          <nav className="desktop-nav radio-inputs">
+            <button className="btn-primary" onClick={() => switchStyle('glass', 'tone-soft')}>Glass</button>
+            <button className="btn-primary" onClick={() => switchStyle('neumo', 'tone-light')}>Neumo</button>
+            <button className="btn-primary" onClick={() => switchStyle('clay', 'tone-vivid')}>Clay</button>
           </nav>
           <div className="logo-title">
               <img src={viteLogo} alt="Vite" className="logo small" />
@@ -39,7 +39,6 @@ function App() {
         </header>
       </div>
 
-
       {/* Mobile Sidebar */}
       <aside className={`sidebar ${menuOpen ? 'open' : ''}`}>
         <button className="close-btn" onClick={toggleMenu}>×</button>
@@ -48,6 +47,7 @@ function App() {
           <a className="button btn-primary" onClick={() => switchStyle('neumo', 'tone-light')}>Neumo</a>
           <a className="button btn-primary" onClick={() => switchStyle('clay', 'tone-vivid')}>Clay</a>
         </nav>
+        
       </aside>
       {/* Main Content */}
       <main className="main-content">
@@ -68,7 +68,7 @@ function App() {
                 <img src={reactLogo} className="logo react" alt="React logo" />
               </a>
             </div>
-            <button className={newLocal} onClick={() => setCount(count + 1)}>
+            <button class="btn" className= {newLocal} onClick={() => setCount(count + 1)}>
               count is {count}
             </button>
             <p>

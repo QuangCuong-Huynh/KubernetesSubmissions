@@ -188,11 +188,11 @@ body.tone-dark {
 }
 body.tone-soft {
   --color-primary: #7c8cff;
-  --color-accent: #ffd54f;
+  --color-accent: #a89e7f;
 }
 body.tone-vivid {
   --color-primary: #0066ff;
-  --color-accent: #ff80a0;
+  --color-accent: #e9aebd;
 }
 
 /* === 8. Header / Sidebar / Footer === */
