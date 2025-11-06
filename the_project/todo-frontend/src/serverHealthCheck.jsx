@@ -95,15 +95,14 @@ function ServerHealthCheck() {
   if (error) return <div>❌ Error: {error}</div>;
 
   return (
-    <div style={{ fontFamily: "monospace", padding: "1rem", display: "grid", gap: "1.5rem" }}>
+    <div class="container" style={{ fontFamily: "monospace", padding: "1rem", display: "grid", gap: "1.5rem" }}>
       
       {/* --- Responsive Data Section: API Root Card --- */}
-      <div
+      <div class="card"
         style={{
           border: "1px solid #ccc",
           borderRadius: "8px",
           padding: "1rem",
-          backgroundColor: "#f9f9f9",
           // Use flex for simple content display
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
@@ -121,7 +120,6 @@ function ServerHealthCheck() {
               borderRadius: "4px",
               padding: "0.5rem",
               wordBreak: "break-word",
-              backgroundColor: "#fff",
             }}
           >
             <strong style={{ display: 'block', marginBottom: '0.3rem', color: '#333' }}>{key}</strong>
@@ -133,12 +131,11 @@ function ServerHealthCheck() {
       </div>
       
       {/* --- Responsive Data Section: API Health Card (Using Table) --- */}
-      <div
+      <div class="card"
         style={{
           border: "1px solid #ccc",
           borderRadius: "8px",
           padding: "1rem",
-          backgroundColor: "#f9f9f9",
         }}
       >
         <h2 style={{ margin: 0, paddingBottom: "0.5rem" }}>🩺 API v1.4 Health</h2>

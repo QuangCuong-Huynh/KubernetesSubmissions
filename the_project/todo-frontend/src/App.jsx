@@ -77,7 +77,7 @@ function App() {
           </div>
 
         </div>
-          <div className="table">
+          <div className="grid-container">
             <ServerHealthCheck />
           </div>
       </main>
