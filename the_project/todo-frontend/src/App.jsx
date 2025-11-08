@@ -27,6 +27,8 @@ function App() {
             <button className="btn-primary" onClick={() => switchStyle('glass', 'tone-soft')}>Glass</button>
             <button className="btn-primary" onClick={() => switchStyle('neumo', 'tone-light')}>Neumo</button>
             <button className="btn-primary" onClick={() => switchStyle('clay', 'tone-vivid')}>Clay</button>
+            <button className="btn-primary" onClick={() => switchStyle('dark', 'tone-dark')}>Dark</button>
+
           </nav>
           <div className="logo-title">
               <img src={viteLogo} alt="Vite" className="logo small" />
@@ -46,6 +48,7 @@ function App() {
           <a className="button btn-primary" onClick={() => switchStyle('glass', 'tone-soft')}>Glass</a>
           <a className="button btn-primary" onClick={() => switchStyle('neumo', 'tone-light')}>Neumo</a>
           <a className="button btn-primary" onClick={() => switchStyle('clay', 'tone-vivid')}>Clay</a>
+          <a className="button btn-primary" onClick={() => switchStyle('', 'tone-dark')}>Dark</a>
         </nav>
         
       </aside>
@@ -53,7 +56,7 @@ function App() {
       <main className="main-content">
         <div class="grid-container">
           <div className="card">
-            <h2>Kubernetes Todo App</h2>
+            <h2 >Kubernetes Todo App</h2>
             {/* Replace this with your actual component */}
             <p>TodoListView() goes here</p>
           </div>

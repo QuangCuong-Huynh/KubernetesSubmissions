@@ -95,10 +95,10 @@ function ServerHealthCheck() {
   if (error) return <div>❌ Error: {error}</div>;
 
   return (
-    <div class="container" style={{ fontFamily: "monospace", padding: "1rem", display: "grid", gap: "1.5rem" }}>
+    <div className="grid-container table" style={{ fontFamily: "monospace", padding: "1rem", display: "grid", gap: "1.5rem" }}>
       
       {/* --- Responsive Data Section: API Root Card --- */}
-      <div class="card"
+      <div className="card table"
         style={{
           border: "1px solid #ccc",
           borderRadius: "8px",
@@ -109,7 +109,7 @@ function ServerHealthCheck() {
           gap: "0.5rem",
         }}
       >
-        <h2 style={{ gridColumn: "1 / -1", margin: 0, paddingBottom: "0.5rem" }}>✅ API v1.4 Root</h2>
+        <h2 className= "th" style={{ gridColumn: "1 / -1", margin: 0, paddingBottom: "0.5rem" }}>✅ API v1.4 Root</h2>
         
         {/* Render Root Data in cards (original style) */}
         {rootData && Object.entries(rootData).map(([key, value]) => (
@@ -131,18 +131,18 @@ function ServerHealthCheck() {
       </div>
       
       {/* --- Responsive Data Section: API Health Card (Using Table) --- */}
-      <div class="card"
+      <div className="card table"
         style={{
           border: "1px solid #ccc",
           borderRadius: "8px",
           padding: "1rem",
         }}
       >
-        <h2 style={{ margin: 0, paddingBottom: "0.5rem" }}>🩺 API v1.4 Health</h2>
+        <h2 className="th"style={{ margin: 0, paddingBottom: "0.5rem" }}>🩺 API v1.4 Health</h2>
         
         {/* Render Health Data in a well-structured table */}
         {healthData ? (
-          <div style={{ border: '1px solid #ddd', borderRadius: '4px' }}>
+          <div className ="tb" style={{ border: '1px solid #ddd', borderRadius: '4px' }}>
             {renderDataTable(healthData)}
           </div>
         ) : (
