@@ -78,12 +78,14 @@ h1, h2, h3, h4 {
   font-weight: var(--font-weight-bold);
   color: var(--color-text)
 }
-p {
+p, span, li {
   margin: 0 0 1em;
   line-height: 1.6;
   color: var(--color-text);
 }
-
+p, span, li:focus-visible {
+  color: var(--color-text);
+}
 /* === 4. Links & Buttons === */
 a {
   color: var(--color-primary);
@@ -109,6 +111,7 @@ button:focus-visible,
 .btn:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
+  color: var(--color-text)
 }
 
 .btn-primary {
@@ -119,6 +122,7 @@ button:focus-visible,
 .btn-primary:hover {
   filter: brightness(0.95);
   transform: translateY(-2px);
+  color: var(--color-accent)
 }
 
 /* === 5. Cards === */

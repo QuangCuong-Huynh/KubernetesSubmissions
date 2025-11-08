@@ -15,11 +15,11 @@ function App() {
     document.body.className = `${style} ${tone}`
   }
 
-  const newLocal = "button btn-primary"
+  const newLocal = "button btn btn-primary"
   return (
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {/* Header */}
-      <div class="container">
+      <div className="container">
         <header className="app-header morph-header">
           
 
@@ -54,7 +54,7 @@ function App() {
       </aside>
       {/* Main Content */}
       <main className="main-content">
-        <div class="grid-container">
+        <div className="grid-container">
           <div className="card">
             <h2 >Kubernetes Todo App</h2>
             {/* Replace this with your actual component */}
@@ -71,7 +71,7 @@ function App() {
                 <img src={reactLogo} className="logo react" alt="React logo" />
               </a>
             </div>
-            <button class="btn" className= {newLocal} onClick={() => setCount(count + 1)}>
+            <button className= {newLocal} onClick={() => setCount(count + 1)}>
               count is {count}
             </button>
             <p>

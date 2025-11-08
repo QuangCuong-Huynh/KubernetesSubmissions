@@ -15,8 +15,8 @@ const renderDataTable = (data) => {
     // For arrays, just list items, often better handled in the main component if structure is known
     return (
       <ul style={{ paddingLeft: '20px', margin: 0 }}>
-        {data.map((item, index) => (
-          <li key={index}>{renderDataTable(item)}</li>
+        {data.map((item) => (
+          <li key={item.id}>{renderDataTable(item)}</li>
         ))}
       </ul>
     );
@@ -112,22 +112,13 @@ function ServerHealthCheck() {
         <h2 className= "th" style={{ gridColumn: "1 / -1", margin: 0, paddingBottom: "0.5rem" }}>✅ API v1.4 Root</h2>
         
         {/* Render Root Data in cards (original style) */}
-        {rootData && Object.entries(rootData).map(([key, value]) => (
-          <div
-            key={key}
-            style={{
-              border: "1px solid #ddd",
-              borderRadius: "4px",
-              padding: "0.5rem",
-              wordBreak: "break-word",
-            }}
-          >
-            <strong style={{ display: 'block', marginBottom: '0.3rem', color: '#333' }}>{key}</strong>
-            <pre style={{ margin: "0", whiteSpace: "pre-wrap", overflowX: 'auto', fontSize: '0.85rem' }}>
-              {JSON.stringify(value, null, 2)}
-            </pre>
+        {rootData ? (
+          <div className ="tb" style={{ border: '1px solid #ddd', borderRadius: '4px' }}>
+            {renderDataTable(rootData)}
           </div>
-        ))}
+        ) : (
+          <div>No root api data available.</div>
+        )}
       </div>
       
       {/* --- Responsive Data Section: API Health Card (Using Table) --- */}
