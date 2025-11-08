@@ -4,10 +4,11 @@
  */
 
 import React from 'react';
+import { jest, describe, beforeEach, it, expect } from '@jest/globals';
 import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import axios from 'axios';
-import {ServerHealthCheck} from '../serverHealthCheck';
+import ServerHealthCheck from '../src/serverHealthCheck.jsx';
 
 jest.mock('axios'); // mock all axios calls
 
@@ -95,7 +96,7 @@ describe('🧩 ServerHealthCheck Component', () => {
 
   // -------------------------------------------------------------
   it('renders nested table rows for complex health data', async () => {
-    const complexHealth = {
+    const complexHealthData = {
       status: 'ok',
       metrics: {
         cpu: { usage: '12%', temp: '47C' },
@@ -104,16 +105,16 @@ describe('🧩 ServerHealthCheck Component', () => {
     };
 
     axios.get
-      .mockResolvedValueOnce({ data: mockRootData })
-      .mockResolvedValueOnce({ data: complexHealth });
+      .mockResolvedValueOnce({ data: mockRootData }) // /api/v1.4
+      .mockResolvedValueOnce({ data: complexHealthData }); // /api/v1.4/health
 
     render(<ServerHealthCheck />);
 
-    await waitFor(() => {
-      expect(screen.getByText('cpu')).toBeInTheDocument();
-      expect(screen.getByText('usage')).toBeInTheDocument();
-      expect(screen.getByText('12%')).toBeInTheDocument();
-      expect(screen.getByText('memory')).toBeInTheDocument();
-    });
+    expect(await screen.findByText('cpu')).toBeInTheDocument();
+    expect(screen.getAllByText('usage')).toHaveLength(2);
+    expect(await screen.findByText('12%')).toBeInTheDocument();
+    expect(await screen.findByText('60%')).toBeInTheDocument();
+    expect(await screen.findByText('memory')).toBeInTheDocument();
   });
+
 });

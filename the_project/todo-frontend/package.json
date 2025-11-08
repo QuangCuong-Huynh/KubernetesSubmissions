@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint src --fix",
     "preview": "vite preview",
-    "test": "jest",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "jest:coverage": " npx jest --coverage",
     "bdd": "cucumber-js tests/features --require tests/steps --format @cucumber/pretty-formatter",
     "cypress:open": "cypress open"
   },
@@ -19,6 +20,8 @@
     "react-dom": "^19.1.1"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.28.5",
+    "@babel/preset-react": "^7.28.5",
     "@cucumber/cucumber": "^12.2.0",
     "@cucumber/pretty-formatter": "^2.4.1",
     "@eslint/js": "^9.36.0",
@@ -39,6 +42,7 @@
     "jest-cucumber": "^4.5.0",
     "jest-environment-jsdom": "^30.2.0",
     "prettier": "^3.6.2",
+    "react-test-renderer": "^19.2.0",
     "vite": "^7.1.7"
   }
 }
