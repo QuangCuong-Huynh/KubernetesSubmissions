@@ -36,7 +36,7 @@ app.use(cors({
 }));
 app.use(morgan("tiny"));    // Log HTTP requests
 app.use(express.json());    // Parse JSON bodies
-
+app.set('trust proxy', 1); 
 // --------------------------
 // Rate Limiting
 // --------------------------
