@@ -10,8 +10,13 @@
 name: Publish Docker image
 
 on:
-  release:
-    types: [published]
+  push:
+    branches: ["main", "release"]
+    paths: ["VERSION"]
+    tags: ["v*.*.*"]
+  workflow_run:
+    workflows: ["Node.js CI", "CodeQL Advanced"]
+    types: [completed]
 
 jobs:
   push_to_registry:
