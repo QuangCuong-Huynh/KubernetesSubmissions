@@ -42,6 +42,12 @@ app.locals.sessionId = sessionId;
 app.locals.appVersion = appVersion;
 app.locals.apiVersion = apiVersion;
 
+// latency
+app.use((req, res, next) => {
+  req.startTime = Date.now();
+  next();
+});
+
 // --------------------------
 // Routes
 // --------------------------

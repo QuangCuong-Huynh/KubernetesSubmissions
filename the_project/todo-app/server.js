@@ -32,7 +32,7 @@ app.use(helmet());          // Secure headers
 // Cross-Origin Resource Sharing
 app.use(cors({
   methods: ['GET','POST','PUT','DELETE','OPTIONS'],
-  allowedHeaders: ['Content-Type','Authorization']
+  allowedHeaders: ['Content-Type','Authorization'], credentials: false,
 }));
 app.use(morgan("tiny"));    // Log HTTP requests
 app.use(express.json());    // Parse JSON bodies
@@ -45,6 +45,7 @@ const limiter = rateLimit({
   max: 100,                 // limit each IP to 100 requests per windowMs
 });
 app.use(limiter);
+
 
 // Swagger definition
 const swaggerOptions = {
