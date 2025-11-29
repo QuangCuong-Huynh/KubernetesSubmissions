@@ -9,6 +9,13 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
 
 import app from "./app.js";
+import { requestLogger } from "./middleware/requestLogger.js";
+import { errorHandler } from "./middleware/errorHandler.js";
+
+// --------------------------
+// Init
+// --------------------------
+const server = express();
 
 // --------------------------
 // Load environment variables
@@ -27,16 +34,16 @@ const { sessionId, appVersion, apiVersion } = app.locals;
 // --------------------------
 // Security & Middleware
 // --------------------------
-app.use(helmet());          // Secure headers
+server.use(helmet());          // Secure headers
 
 // Cross-Origin Resource Sharing
-app.use(cors({
+server.use(cors({
   methods: ['GET','POST','PUT','DELETE','OPTIONS'],
   allowedHeaders: ['Content-Type','Authorization'], credentials: false,
 }));
-app.use(morgan("tiny"));    // Log HTTP requests
-app.use(express.json());    // Parse JSON bodies
-app.set('trust proxy', 1); 
+server.use(morgan("tiny"));    // Log HTTP requests
+server.use(express.json());    // Parse JSON bodies
+server.set('trust proxy', 1); 
 // --------------------------
 // Rate Limiting
 // --------------------------
@@ -44,8 +51,13 @@ const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100,                 // limit each IP to 100 requests per windowMs
 });
-app.use(limiter);
+server.use(limiter);
 
+// --------------------------
+// Logging Middleware
+// --------------------------
+server.use(morgan("tiny"));
+server.use(requestLogger);
 
 // Swagger definition
 const swaggerOptions = {
@@ -58,7 +70,7 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: `https://opulent-space-winner-97794xgp775vcxrg4-3000.app.github.dev/api/v1.4`,
+                url: `/api/v1.4`,
             },
         ],
     components: {
@@ -74,13 +86,27 @@ const swaggerOptions = {
     apis: ['./routes/*.js'], 
 };
 
+
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
-   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+server.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // --------------------------
-// Start server
+// Mount Main App
 // --------------------------
-app.listen(PORT, () => {
+server.use(app);
+
+// --------------------------
+// 404 & Error Handlers
+// --------------------------
+server.use((req, res) => {
+  res.status(404).json({ message: "Route not found" });
+});
+server.use(errorHandler);
+
+// --------------------------
+// Start Server
+// --------------------------
+server.listen(PORT, () => {
   console.log(`Server running on port ${PORT} [${ENV}]`);
   console.log(`Session ID: ${sessionId}`);
   console.log(`App Version: ${appVersion}, API Version: ${apiVersion}`);

@@ -138,7 +138,7 @@ router.get(
 router.get(
   "/",
   asyncHandler(async (req, res) => {
-    console.log("SUCCESS: API v1.4 route was successfully hit!");
+    console.log("SUCCESS: API route was successfully hit!");
     console.log("Request Headers:", req.headers); // Debug headers
     sendResponse(res, {
       message: "Welcome to API Root version " + res.app.locals.apiVersion,

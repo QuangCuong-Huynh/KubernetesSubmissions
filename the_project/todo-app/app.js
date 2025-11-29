@@ -48,15 +48,36 @@ app.use((req, res, next) => {
   next();
 });
 
+// Serve static assets (CSS, images, JS, HTML)
+app.use(express.static(path.join(__dirname, 'public')));
+
 // --------------------------
 // Routes
 // --------------------------
+
 app.use("/", routes);
-app.use("/api", routes);                   // generic API routes
+app.use("/health", routes);
+app.use("/api", apiRoutes);                   // generic API routes
 app.use(`/api/${apiVersion}`, apiRoutes); // versioned API
 
-// Root redirect to versioned API
-app.get("/", (req, res) => {
+app.get("/config.js", (req, res) => {
+  res.type("application/javascript");
+
+  const config = `window.APP_CONFIG = {
+    API_URL: "/api/${apiVersion}",
+    API_VERSION: "${apiVersion}",
+    APP_VERSION: "${appVersion}",
+    SESSION_ID: "${sessionId}"
+  };`;
+
+  res.send(config);
+});
+
+
+app.use(express.static("public"));
+
+// api Root redirect to versioned API
+app.get("/api", (req, res) => {
   res.redirect(`/api/${apiVersion}`);
   console.log(`Redirected / to /api/${apiVersion}`);
   //log  event

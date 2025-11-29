@@ -56,10 +56,3 @@ describe("API Root", function () {
   });
 });
 
-describe("Server Routes", function () {
-  it("should redirect / to versioned API", async function () {
-    const res = await request.get("/").redirects(0); // prevent auto-follow
-    expect(res.status).to.equal(302);
-    expect(res.headers.location).to.equal(`/api/${apiVersion}`);
-  });
-});
