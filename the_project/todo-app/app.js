@@ -12,7 +12,9 @@ import fs from "fs";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const pkg = JSON.parse(fs.readFileSync(new URL("./package.json", import.meta.url)));
+const pkg = JSON.parse(
+  fs.readFileSync(new URL("./package.json", import.meta.url)),
+);
 const packageVersion = pkg.version;
 
 // Read VERSION file from project root
@@ -24,7 +26,9 @@ const rawVersion = fs.existsSync(rootVersionPath)
 const appVersion = process.env.APP_VERSION ?? rawVersion;
 const apiVersion = `v${appVersion.split(".").slice(0, 2).join(".")}`;
 
-console.log(`Starting Todo App Server - App Version: ${appVersion}, API Version: ${apiVersion}`);
+console.log(
+  `Starting Todo App Server - App Version: ${appVersion}, API Version: ${apiVersion}`,
+);
 
 // --------------------------
 // Create Express app
@@ -49,7 +53,7 @@ app.use((req, res, next) => {
 });
 
 // Serve static assets (CSS, images, JS, HTML)
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
 // --------------------------
 // Routes
@@ -57,7 +61,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use("/", routes);
 app.use("/health", routes);
-app.use("/api", apiRoutes);                   // generic API routes
+app.use("/api", apiRoutes); // generic API routes
 app.use(`/api/${apiVersion}`, apiRoutes); // versioned API
 
 app.get("/config.js", (req, res) => {
@@ -105,6 +109,5 @@ app.use((err, req, res, next) => {
   console.log(`memoryUsage: ${JSON.stringify(process.memoryUsage())}`);
   console.log(`uptime: ${process.uptime()} seconds`);
 });
-
 
 export default app;

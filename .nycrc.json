@@ -1,10 +1,6 @@
 {
   "all": true,
-  "include": [
-    "app.js",
-    "routes/**/*.js",
-    "src/**/*.js"
-  ],
+  "include": ["app.js", "routes/**/*.js", "src/**/*.js"],
   "exclude": [
     "test/**",
     "coverage/**",
@@ -12,19 +8,10 @@
     "**/*.test.js",
     "**/*.spec.js"
   ],
-  "reporter": [
-    "text",
-    "text-summary",
-    "html",
-    "lcov"
-  ],
+  "reporter": ["text", "text-summary", "html", "lcov"],
   "report-dir": "./coverage",
-  "extension": [
-    ".js"
-  ],
-  "require": [
-    "dotenv/config"
-  ],
+  "extension": [".js"],
+  "require": ["dotenv/config"],
   "sourceMap": true,
   "instrument": true,
   "check-coverage": true,

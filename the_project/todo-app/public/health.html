@@ -1,87 +1,83 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>System Health Status</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="index.css" />
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px auto;
-            max-width: 900px;
-            color: #333;
-            line-height: 1.6;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 40px auto;
+        max-width: 900px;
+        color: #333;
+        line-height: 1.6;
+      }
 
-        h1,
-        h2 {
-            text-align: center;
-        }
+      h1,
+      h2 {
+        text-align: center;
+      }
 
-        .card {
-            border: 1px solid #ddd;
-            padding: 16px;
-            border-radius: 8px;
-            margin: 20px 0;
-            background: #fafafa;
-        }
+      .card {
+        border: 1px solid #ddd;
+        padding: 16px;
+        border-radius: 8px;
+        margin: 20px 0;
+        background: #fafafa;
+      }
 
-        .status {
-            padding: 6px 12px;
-            border-radius: 4px;
-            color: white;
-            font-weight: bold;
-        }
+      .status {
+        padding: 6px 12px;
+        border-radius: 4px;
+        color: white;
+        font-weight: bold;
+      }
 
-        .green {
-            background: #2ecc71;
-        }
+      .green {
+        background: #2ecc71;
+      }
 
-        .yellow {
-            background: #f1c40f;
-        }
+      .yellow {
+        background: #f1c40f;
+      }
 
-        .red {
-            background: #e74c3c;
-        }
+      .red {
+        background: #e74c3c;
+      }
 
-        pre {
-            background: #eee;
-            padding: 12px;
-            border-radius: 6px;
-            overflow-x: auto;
-        }
+      pre {
+        background: #eee;
+        padding: 12px;
+        border-radius: 6px;
+        overflow-x: auto;
+      }
 
-        footer {
-            margin-top: 40px;
-            text-align: center;
-            color: #888;
-        }
+      footer {
+        margin-top: 40px;
+        text-align: center;
+        color: #888;
+      }
     </style>
 
     <!-- Auto-refresh page every 5 seconds -->
-    <meta http-equiv="refresh" content="5">
-</head>
+    <meta http-equiv="refresh" content="5" />
+  </head>
 
-<body>
-
+  <body>
     <h1>System Health Status</h1>
-    <p style="text-align:center;">This page provides live service health information (dynamic from API).</p>
+    <p style="text-align: center">
+      This page provides live service health information (dynamic from API).
+    </p>
 
     <div id="dynamic-content">
-        <p>Loading health data...</p>
+      <p>Loading health data...</p>
     </div>
 
-    <footer>
-        Health Page • Auto-updates every 5 seconds • © 2025
-    </footer>
+    <footer>Health Page • Auto-updates every 5 seconds • © 2025</footer>
     <!-- Load runtime env values with cache buster -->
     <script src="/config.js"></script>
     <script src="/health.js"></script>
-
-</body>
-
+  </body>
 </html>

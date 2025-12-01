@@ -26,7 +26,7 @@ export function useTodoViewModel() {
   const toggleTodo = async (id, done) => {
     const updated = await TodoModel.toggle(id, done);
     setTodos((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, done: updated.done } : t))
+      prev.map((t) => (t.id === id ? { ...t, done: updated.done } : t)),
     );
   };
 

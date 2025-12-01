@@ -1,12 +1,14 @@
 async function loadHealth() {
-    try {
-        const res = await fetch(`api/${window.APP_CONFIG.API_VERSION}/health`, { cache: "no-store" });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  try {
+    const res = await fetch(`api/${window.APP_CONFIG.API_VERSION}/health`, {
+      cache: "no-store",
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-        const result = await res.json();
-        const health = result.data;
+    const result = await res.json();
+    const health = result.data;
 
-        const html = `
+    const html = `
             <div class="card">
                 <h2>System Status: 
                     <span class="status green">HEALTHY</span>
@@ -27,22 +29,21 @@ async function loadHealth() {
             <div class="card">
                 <h3>Available Endpoints</h3>
                 <ul>
-                    ${health.endpoints.map(e => `<li>${e}</li>`).join('')}
+                    ${health.endpoints.map((e) => `<li>${e}</li>`).join("")}
                 </ul>
             </div>
         `;
 
-        document.getElementById("dynamic-content").innerHTML = html;
-
-    } catch (err) {
-        document.getElementById("dynamic-content").innerHTML = `
+    document.getElementById("dynamic-content").innerHTML = html;
+  } catch (err) {
+    document.getElementById("dynamic-content").innerHTML = `
             <div class="card">
                 <h2>Error Loading Health</h2>
                 <span class="status red">FAILED</span>
             </div>
             <pre>${err}</pre>
         `;
-    }
+  }
 }
 
 loadHealth();

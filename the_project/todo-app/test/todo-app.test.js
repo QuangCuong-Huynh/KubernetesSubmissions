@@ -14,8 +14,7 @@ describe("Server Routes", () => {
   it("should return HTML content for root route", async () => {
     const res = await request(app).get("/");
     assert.equal(res.status, 200);
-    assert.include(res.headers["content-type"], "text/html"
-    );
+    assert.include(res.headers["content-type"], "text/html");
   });
 
   // Test 3: GET /config.js
