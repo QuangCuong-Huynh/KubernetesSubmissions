@@ -64,15 +64,14 @@ app.get("/config.js", (req, res) => {
   res.type("application/javascript");
 
   const config = `window.APP_CONFIG = {
-    API_URL: "/api/${apiVersion}",
-    API_VERSION: "${apiVersion}",
-    APP_VERSION: "${appVersion}",
-    SESSION_ID: "${sessionId}"
+    API_URL: "/api/${res.app.locals.apiVersion}",
+    API_VERSION: "${res.app.locals.apiVersion}",
+    APP_VERSION: "${res.app.locals.appVersion}",
+    SESSION_ID: "${res.app.locals.sessionId}"
   };`;
 
   res.send(config);
 });
-
 
 app.use(express.static("public"));
 

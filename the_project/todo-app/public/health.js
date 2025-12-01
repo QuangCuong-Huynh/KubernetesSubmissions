@@ -46,4 +46,4 @@ async function loadHealth() {
 }
 
 loadHealth();
-setInterval(loadHealth, 15000);
+setInterval(loadHealth, 864000);
