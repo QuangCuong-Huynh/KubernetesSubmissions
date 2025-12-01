@@ -49,7 +49,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BASE }}/log_output
-          tags: main
+          tags: latest
 
       - name: Build & push log_output image
         id: build-log
@@ -66,6 +66,7 @@ jobs:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BASE }}/log_output
           subject-digest: ${{ steps.build-log.outputs.digest }}
           predicate-type: https://slsa.dev/provenance/v1
+          predicate: '{"buildType":"docker","builder":"GitHub Actions"}'
           push-to-registry: true
           show-summary: true
         env:
@@ -79,7 +80,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BASE }}/todo-app
-          tags: main
+          tags: latest
 
       - name: Build & push todo-app image
         id: build-todo
@@ -96,6 +97,7 @@ jobs:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BASE }}/todo-app
           subject-digest: ${{ steps.build-todo.outputs.digest }}
           predicate-type: https://slsa.dev/provenance/v1
+          predicate: '{"buildType":"docker","builder":"GitHub Actions"}'
           push-to-registry: true
           show-summary: true
         env:
