@@ -66,6 +66,7 @@ jobs:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BASE }}/log_output
           subject-digest: ${{ steps.build-log.outputs.digest }}
           predicate-type: https://slsa.dev/provenance/v1
+          predicate: '{"buildType":"docker","builder":"GitHub Actions"}'
           push-to-registry: true
           show-summary: true
         env:
@@ -96,6 +97,7 @@ jobs:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BASE }}/todo-app
           subject-digest: ${{ steps.build-todo.outputs.digest }}
           predicate-type: https://slsa.dev/provenance/v1
+          predicate: '{"buildType":"docker","builder":"GitHub Actions"}'
           push-to-registry: true
           show-summary: true
         env:
