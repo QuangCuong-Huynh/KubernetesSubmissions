@@ -1,153 +1,70 @@
-name: Publish Docker images
-
+name: Publish Docker image
 on:
   push:
     branches: ["main", "release"]
     paths: ["VERSION"]
     tags: ["v*.*.*"]
-
-# Prevent concurrent builds for same ref
-concurrency:
-  group: docker-publish-${{ github.ref }}
-  cancel-in-progress: true
-
-env:
-  DOCKER_REGISTRY: docker.io
-  DOCKER_NAMESPACE: quangcuonghuynh
-
+  workflow_run:
+    workflows: ["Node.js CI", "CodeQL Advanced"]
+    types: [completed]
 jobs:
-  validate-version:
-    name: Validate VERSION file
-    runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.version.outputs.VERSION }}
-    steps:
-      - name: Check out repo
-        uses: actions/checkout@v4
-      
-      - name: Read and validate VERSION
-        id: version
-        run: |
-          VERSION=$(cat VERSION | tr -d '[:space:]')
-          
-          # Validate semantic version format
-          if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "Invalid VERSION format: $VERSION"
-            echo "Expected semantic version (e.g., 1.2.3)"
-            exit 1
-          fi
-          
-          echo "Valid VERSION: $VERSION"
-          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
-
   push_to_registry:
-    name: Build and push Docker images
+    name: Push Docker images to Docker Hub
     runs-on: ubuntu-latest
-    needs: validate-version
-    timeout-minutes: 30
     permissions:
       packages: write
       contents: read
       attestations: write
       id-token: write
-    
-    strategy:
-      fail-fast: false
-      matrix:
-        image:
-          - name: log-output
-            context: ./log_output
-          - name: todo-app
-            context: ./the_project/todo-app
-    
     steps:
-      - name: Check out repo
-        uses: actions/checkout@v4
-      
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-        with:
-          # Enable build caching
-          driver-opts: |
-            image=moby/buildkit:latest
-            network=host
-      
+      - name: Check out the repo
+        uses: actions/checkout@v5
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_TOKEN }}  # Use access token, not password
-      
-      - name: Extract metadata
-        id: meta
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      # -------------------------------
+      # Build & push log-output image
+      # -------------------------------
+      - name: Extract metadata for log-output
+        id: meta-log-output
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.DOCKER_NAMESPACE }}/${{ matrix.image.name }}
-          tags: |
-            # Tag with branch name on branch push
-            type=ref,event=branch
-            
-            # Tag with semver on tag push
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}}
-            
-            # Tag with VERSION file content
-            type=raw,value=${{ needs.validate-version.outputs.version }}
-            
-            # Only tag 'latest' on release branch or version tags
-            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/release' || startsWith(github.ref, 'refs/tags/v') }}
-          
-          labels: |
-            org.opencontainers.image.title=${{ matrix.image.name }}
-            org.opencontainers.image.vendor=QuangCuongHuynh
-            org.opencontainers.image.version=${{ needs.validate-version.outputs.version }}
-      
-      - name: Build and push
-        id: build-push
-        uses: docker/build-push-action@v6
+          images: quangcuonghuynh/log-output
+      - name: Build and push log-output image
+        id: log-output-push
+        uses: docker/build-push-action@v5
         with:
-          context: ${{ matrix.image.context }}
-          # platforms: linux/amd64,linux/arm64  # Uncomment for multi-platform
+          context: ./log_output
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          
-          # Enable layer caching
-          cache-from: type=registry,ref=${{ env.DOCKER_NAMESPACE }}/${{ matrix.image.name }}:buildcache
-          cache-to: type=registry,ref=${{ env.DOCKER_NAMESPACE }}/${{ matrix.image.name }}:buildcache,mode=max
-          
-          # Add build arguments if needed
-          # build-args: |
-          #   VERSION=${{ needs.validate-version.outputs.version }}
-      
-      - name: Attest image provenance
-        uses: actions/attest-build-provenance@v2
+          tags: ${{ steps.meta-log-output.outputs.tags }}
+          labels: ${{ steps.meta-log-output.outputs.labels }}
+      - name: Attest log-output image
+        uses: actions/attest-build-provenance@v1
         with:
-          subject-name: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_NAMESPACE }}/${{ matrix.image.name }}
-          subject-digest: ${{ steps.build-push.outputs.digest }}
+          subject-name: index.docker.io/quangcuonghuynh/log-output
+          subject-digest: ${{ steps.log-output-push.outputs.digest }}
           push-to-registry: true
-      
-      - name: Verify image push
-        run: |
-          echo "Successfully pushed ${{ matrix.image.name }}"
-          echo "Digest: ${{ steps.build-push.outputs.digest }}"
-          echo "Tags: ${{ steps.meta.outputs.tags }}"
-
-  notify:
-    name: Notify on completion
-    runs-on: ubuntu-latest
-    needs: push_to_registry
-    if: always()
-    steps:
-      - name: Report status
-        run: |
-          if [ "${{ needs.push_to_registry.result }}" == "success" ]; then
-            echo "All images published successfully"
-          else
-            echo "Build failed - check workflow logs"
-            exit 1
-          fi
+      # -------------------------------
+      # Build & push todo-app image
+      # -------------------------------
+      - name: Extract metadata for todo-app
+        id: meta-todo
+        uses: docker/metadata-action@v5
+        with:
+          images: quangcuonghuynh/todo-app
+      - name: Build and push todo-app image
+        id: todo-push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./the_project/todo-app
+          push: true
+          tags: ${{ steps.meta-todo.outputs.tags }}
+          labels: ${{ steps.meta-todo.outputs.labels }}
+      - name: Attest todo-app image
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-name: index.docker.io/quangcuonghuynh/todo-app
+          subject-digest: ${{ steps.todo-push.outputs.digest }}
+          push-to-registry: true
