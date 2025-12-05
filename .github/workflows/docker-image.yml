@@ -32,12 +32,12 @@ jobs:
           
           # Validate semantic version format
           if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "❌ Invalid VERSION format: $VERSION"
+            echo "Invalid VERSION format: $VERSION"
             echo "Expected semantic version (e.g., 1.2.3)"
             exit 1
           fi
           
-          echo "✅ Valid VERSION: $VERSION"
+          echo "Valid VERSION: $VERSION"
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
 
   push_to_registry:
